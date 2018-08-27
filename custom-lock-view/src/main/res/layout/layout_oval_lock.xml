@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- <com.zhpan.lockview.view.CircleView
+         android:id="@+id/green_cv"
+         android:layout_width="15dp"
+         android:layout_height="15dp"
+         android:layout_marginTop="110dp"
+         app:circle_color="@color/green"
+         android:layout_gravity="center"/>-->
+
+    <TextView
+        android:id="@+id/tv_unlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_130"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp_13" />
+
+    <ImageView
+        android:id="@+id/green_cv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_110"
+        android:src="@drawable/slide_unlock" />
+
+    <!-- <com.zhpan.lockview.view.CircleView
+         android:id="@+id/red_cv"
+         android:layout_width="15dp"
+         android:layout_height="15dp"
+         app:circle_color="@color/red"
+         android:layout_marginTop="-110dp"
+         android:layout_gravity="center"/>-->
+
+    <ImageView
+        android:id="@+id/red_cv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_m_110"
+        android:src="@drawable/slide_lock" />
+
+    <TextView
+        android:id="@+id/tv_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_m_130"
+        android:textColor="@color/red"
+        android:textSize="@dimen/sp_13" />
+
+    <com.zhpan.custom_lock_view.view.CircleWaveView
+        android:id="@+id/circle_wave_view"
+        android:layout_width="@dimen/dp_240"
+        android:layout_height="@dimen/dp_300"
+        android:layout_gravity="center"
+        android:padding="@dimen/dp_20" />
+
+    <LinearLayout
+        android:id="@+id/ll_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_gravity="center">
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white" />
+        <TextView
+            android:id="@+id/tv_connecting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/was_connecting"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginTop="@dimen/dp_5"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</FrameLayout>

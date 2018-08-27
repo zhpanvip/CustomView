@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#CCCCCC">
+    <com.zhpan.custom_pie_chart.PieChartView
+        android:id="@+id/pcv"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:textSize="20sp"
+        app:textColor="#333333"
+        android:background="#FFFFFF"/>
+
+</LinearLayout>

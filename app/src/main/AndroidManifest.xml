@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProgressViewActivity" />
+        <activity android:name=".LockViewActivity" />
+        <activity android:name=".LineChartActivity" />
+        <activity android:name=".PieChatActivity"></activity>
     </application>
 
 </manifest>

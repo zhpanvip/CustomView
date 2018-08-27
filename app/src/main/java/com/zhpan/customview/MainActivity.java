@@ -1,64 +1,40 @@
 package com.zhpan.customview;
 
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zhpan.custom_circle_progress.CircleProgress;
+import com.zhpan.custom_line_chart.LineChartView;
+
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    private CircleProgress mCircleProgress;
-    private int progress;
-    private static Handler mHandler = new Handler();
-    private boolean isRunning;
-    private Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            progress++;
-            mCircleProgress.setProgress(progress);
-            if (progress < 100) {
-                mHandler.postDelayed(this, 300);
-            } else {
-                isRunning = false;
-                mHandler.removeCallbacks(this);
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCircleProgress = findViewById(R.id.cp_view);
-
     }
 
+    @OnClick({R.id.btn_line_chart, R.id.btn_lock_view,
+            R.id.btn_pie_chart, R.id.btn_progress_view})
     public void onClick(View view) {
+        Intent intent = null;
         switch (view.getId()) {
-            case R.id.btn_start:
-                if (!isRunning) {
-                    mHandler.postDelayed(mRunnable, 30);
-                }
-                isRunning = true;
+            case R.id.btn_line_chart:
+                intent = new Intent(this, LineChartActivity.class);
                 break;
-
-            case R.id.btn_stop:
-                mHandler.removeCallbacks(mRunnable);
-                isRunning = false;
+            case R.id.btn_pie_chart:
+                intent = new Intent(this, PieChatActivity.class);
                 break;
-            case R.id.btn_reset:
-                progress=0;
-                mCircleProgress.setProgress(0);
+            case R.id.btn_lock_view:
+                intent = new Intent(this, LockViewActivity.class);
+                break;
+            case R.id.btn_progress_view:
+                intent = new Intent(this, ProgressViewActivity.class);
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacks(mRunnable);
+        if (intent != null)
+            startActivity(intent);
     }
 }

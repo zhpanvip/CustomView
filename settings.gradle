@@ -1,1 +1,1 @@
-include ':app', ':custom-circle-progress', ':library'
+include ':app', ':custom-circle-progress', ':library', ':custom-lock-view', ':custom-line-chart', ':custom-pie_chart'
