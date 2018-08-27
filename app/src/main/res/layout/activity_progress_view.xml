@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.zhpan.custom_circle_progress.CircleProgress
+    <com.zhpan.custom_circle_progress.CircleProgressView
         android:id="@+id/cp_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         app:maxProgress="100" />
