@@ -7,12 +7,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#CCCCCC">
-    <com.zhpan.custom_pie_chart.PieChartView
+    <com.zhpan.custom_pie_chart.view.PieChartView
         android:id="@+id/pcv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:textSize="20sp"
         app:textColor="#333333"
         android:background="#FFFFFF"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="start Animation"/>
 
 </LinearLayout>

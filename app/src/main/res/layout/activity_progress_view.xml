@@ -8,8 +8,8 @@
 
     <com.zhpan.custom_circle_progress.CircleProgressView
         android:id="@+id/cp_view"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         app:maxProgress="100" />

@@ -208,7 +208,7 @@ public class LineChartView extends View {
         mPaintLine = new Paint();
         mPaintLine.setStyle(Paint.Style.STROKE);
         mPaintLine.setAntiAlias(true);
-        mPaintLine.setStrokeWidth(mAxesWidth / 2);
+        mPaintLine.setStrokeWidth(mAxesWidth);
         mPaintLine.setColor(mLineColor);
 
         //  初始化折线路径
