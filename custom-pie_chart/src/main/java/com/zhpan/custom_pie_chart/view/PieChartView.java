@@ -9,7 +9,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -27,17 +29,15 @@ import java.util.List;
  */
 public class PieChartView extends View {
 
-    private int screenW, screenH;
+    private Context context;
 
     /**
      * 画笔去 画 文字 扇形 线
      */
     private Paint textPaint, piePaint, linePaint, midPaint;
 
-    private Context context;
-
     /**
-     * 扇形的 圆心 坐标 半径
+     * 扇形的 圆心坐标 半径
      */
     private int pieCenterX, pieCenterY, pieRadius;
 
@@ -46,70 +46,63 @@ public class PieChartView extends View {
      */
     private RectF pieOval, rectF;
 
-    private float dp_10;
-
-    /*
-     * 传进来的扇形参数
-     */
-    private List<PieItemBean> mPieItems;
-
     private double totalValue;
 
     private ChartAnimator mAnimator;
 
     private Path path = new Path();
 
-    public String midString = "总支出";
+    public String mText;
 
     public Paint mPaintBottom;
 
-    private int mBottomRadius;
-    private int mBottomRingWidth;
+    private float mBottomRadius;
+    private float mBottomRingWidth;
+    private float mTopRadius;
+
+    private float mAlphRadius;
+
+    private float dp_5, dp_10;
+
+    private List<PieItemBean> mPieItems;
 
     public PieChartView(Context context) {
-        super(context);
-
-        init(context);
+        this(context, null);
     }
 
     public PieChartView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        init(context);
+        this(context, attrs, 0);
     }
 
     public PieChartView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        this.context = context;
+        initRadius(context);
+        initData(context);
     }
 
-    private void init(Context context) {
-        this.context = context;
-        mAnimator = new ChartAnimator(new AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                postInvalidate();
-            }
-        });
 
+    private void initRadius(Context context) {
+        dp_10 = DensityUtils.dp2px(context, 10);
+        dp_5 = DensityUtils.dp2px(context, 5);
         // 获取屏幕的 宽高
-        screenW = ScreenUtils.getScreenW(context);
-        screenH = ScreenUtils.getScreenH(context);
+        int screenW = ScreenUtils.getScreenW(context);
+        int screenH = ScreenUtils.getScreenH(context);
         // 计算圆心
         pieCenterX = screenW / 3;
         pieCenterY = screenH / 5;
         // 计算半径（扇形）
         pieRadius = screenW / 5;
-        mBottomRingWidth = pieRadius + 15 - pieRadius / 3 * 2;
-        dp_10 = DensityUtils.dp2px(context, 10);
-        pieOval = new RectF();
-        pieOval.left = pieCenterX - pieRadius;
-        pieOval.top = pieCenterY - pieRadius;
-        pieOval.right = pieCenterX + pieRadius;
-        pieOval.bottom = pieCenterY + pieRadius;
-        // 圆角矩形背景
-        rectF = new RectF();
+        mBottomRadius = pieRadius + DensityUtils.dp2px(context, 5);
+        mBottomRingWidth = pieRadius - mBottomRingWidth / 2;
 
+        mAlphRadius = pieRadius / 3 * 2;
+        mTopRadius = pieRadius / 3 * 2 - dp_10 / 2;
+        pieOval = new RectF(pieCenterX - pieRadius, pieCenterY - pieRadius,
+                pieCenterX + pieRadius, pieCenterY + pieRadius);
+    }
+
+    private void initData(Context context) {
         // The paint to draw text.
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
@@ -126,6 +119,16 @@ public class PieChartView extends View {
         linePaint.setStrokeWidth(DensityUtils.dp2px(context, 0.5f));
 
         midPaint = new Paint();
+
+        mAnimator = new ChartAnimator(new AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                postInvalidate();
+            }
+        });
+
+        // 圆角矩形背景
+        rectF = new RectF();
     }
 
     @Override
@@ -134,42 +137,52 @@ public class PieChartView extends View {
 
     }
 
-    // The degree position of the last item arc's center.
-    private float lastDegree = 0;
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //  最底部圆环
         drawBottomCircle(canvas);
+        //  画扇形圆环和百分比
         drawArc(canvas);
+        //  画上层圆
         drawTopCircle(canvas);
+        //  画中心文字
         drawText(canvas);
     }
 
     private void drawText(Canvas canvas) {
-        midPaint.setColor(Color.parseColor("#333333"));
+        if (TextUtils.isEmpty(mText)) return;
+        Rect bounds = new Rect();
+        midPaint.getTextBounds(mText, 0, mText.length(), bounds);
         midPaint.setTextSize(DensityUtils.dp2px(context, 13f));
-        // 画中间文字
-        canvas.drawText(midString, pieCenterX - midPaint.measureText(midString.substring(0, midString.length() / 2)),
-                pieCenterY + 10, midPaint);
+        Paint.FontMetricsInt fontMetricsInt = midPaint.getFontMetricsInt();
+        int baseline = (getMeasuredHeight() - fontMetricsInt.bottom) / 2 - fontMetricsInt.top;
+        canvas.drawText(mText, pieCenterX - midPaint.measureText(mText.substring(0, mText.length() / 2)) - dp_5, baseline, midPaint);
     }
 
+    //  画中心文字
+   /* private void drawText(Canvas canvas) {
+        midPaint.setColor(Color.parseColor("#333333"));
+        midPaint.setTextSize(DensityUtils.dp2px(context, 13f));
+        canvas.drawText(midString, pieCenterX - midPaint.measureText(midString.substring(0, midString.length() / 2)),
+                pieCenterY + 10, midPaint);
+    }*/
+
+    //  画上层圆
     private void drawTopCircle(Canvas canvas) {
-        // 画内嵌圆
         piePaint.setColor(Color.parseColor("#4c7F7F7F"));
-        canvas.drawCircle(pieCenterX, pieCenterY, pieRadius / 3 * 2, piePaint);
+        canvas.drawCircle(pieCenterX, pieCenterY, mAlphRadius, piePaint);
 
         piePaint.setColor(Color.parseColor("#ffffff"));
-        canvas.drawCircle(pieCenterX, pieCenterY, pieRadius / 3 * 2 - dp_10 / 2, piePaint);
+        canvas.drawCircle(pieCenterX, pieCenterY, mTopRadius, piePaint);
     }
 
     private void drawBottomCircle(Canvas canvas) {
-        mPaintBottom.setColor(Color.parseColor("#f1f1f1"));
-        mPaintBottom.setStyle(Paint.Style.STROKE);
-        mPaintBottom.setStrokeWidth(mBottomRingWidth + dp_10);
+        piePaint.setColor(Color.parseColor("#f1f1f1"));
+//        mPaintBottom.setStyle(Paint.Style.STROKE);
+//        mPaintBottom.setStrokeWidth(mBottomRingWidth + dp_10);
         // 画最底部园
-        canvas.drawCircle(pieCenterX, pieCenterY, pieRadius - mBottomRingWidth / 2, mPaintBottom);
+        canvas.drawCircle(pieCenterX, pieCenterY, mBottomRadius, piePaint);
     }
 
     //  画扇形圆环和百分比
@@ -226,12 +239,16 @@ public class PieChartView extends View {
                 linePaint.setAlpha((int) (255 * mAnimator.getPhaseX()));
                 canvas.drawPath(path, linePaint);
 
-                lastDegree = start + sweep / 2;
                 start += sweep;
             }
         }
     }
 
+
+    public String formatFloat(double value) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(value);
+    }
 
     public void setPieItems(List<PieItemBean> pieItems) {
         this.mPieItems = pieItems;
@@ -241,6 +258,22 @@ public class PieChartView extends View {
         invalidate();
     }
 
+    public void startAnim() {
+        AnimalXY(2000, 2000, new DecelerateInterpolator());
+    }
+
+    public void startAnim(int durationMillisX, int durationMillisY) {
+        AnimalXY(durationMillisX, durationMillisY, new DecelerateInterpolator());
+    }
+
+    public void startAnim(int durationMillisX, int durationMillisY, TimeInterpolator timeInterpolator) {
+        AnimalXY(durationMillisX, durationMillisY, timeInterpolator);
+    }
+
+    private void AnimalXY(int durationMillisX, int durationMillisY,
+                          TimeInterpolator interpolator) {
+        mAnimator.animateXY(durationMillisX, durationMillisY, interpolator);
+    }
 
     public void AnimalY(int durationMillis, TimeInterpolator interpolator) {
         mAnimator.animateY(durationMillis, interpolator);
@@ -250,18 +283,7 @@ public class PieChartView extends View {
         mAnimator.animateX(durationMillis, interpolator);
     }
 
-    public void startAnim() {
-        AnimalXY(2000, 2000, new DecelerateInterpolator());
+    public void setText(String text) {
+        this.mText = text;
     }
-
-    public void AnimalXY(int durationMillisX, int durationMillisY,
-                         TimeInterpolator interpolator) {
-        mAnimator.animateXY(durationMillisX, durationMillisY, interpolator);
-    }
-
-    public String formatFloat(double value) {
-        DecimalFormat df = new DecimalFormat("0.00");
-        return df.format(value);
-    }
-
 }

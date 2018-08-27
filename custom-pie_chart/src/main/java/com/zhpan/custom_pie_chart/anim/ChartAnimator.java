@@ -60,23 +60,7 @@ public class ChartAnimator {
 
     public void animateX(int durationMillis, TimeInterpolator easing) {
 
-        if (android.os.Build.VERSION.SDK_INT < 11)
-            return;
-
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(this, "phaseX", 0f, 1f);
-        //animatorX.setInterpolator(easing);
-        /*animatorX.setInterpolator(new TimeInterpolator() {
-            @Override
-            public float getInterpolation(float input) {
-                float position = input / 0.5f;
-
-                if (position < 1.f) {
-                    return 0.5f * position * position;
-                }
-
-                return -0.5f * ((--position) * (position - 2.f) - 1.f);
-            }
-        });*/
         animatorX.setInterpolator(new LinearInterpolator());
         animatorX.setDuration(durationMillis);
         animatorX.addUpdateListener(mListener);
@@ -85,9 +69,6 @@ public class ChartAnimator {
 
 
     public void animateY(int durationMillis, TimeInterpolator easing) {
-
-        if (android.os.Build.VERSION.SDK_INT < 11)
-            return;
 
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(this, "phaseY", 0f, 1f);
         animatorY.setInterpolator(easing);
@@ -100,12 +81,8 @@ public class ChartAnimator {
 
     public void animateXY(int durationMillisX, int durationMillisY ,TimeInterpolator easing) {
 
-        if (android.os.Build.VERSION.SDK_INT < 11)
-            return;
-
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(this, "phaseY", 0f, 1f);
-        animatorY.setDuration(
-                durationMillisY);
+        animatorY.setDuration(durationMillisY);
         animatorY.setInterpolator(easing);
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(this, "phaseX", 0f, 1f);
         animatorX.setInterpolator(easing);
