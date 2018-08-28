@@ -55,7 +55,6 @@ public class PieChartView extends View {
     public Paint mPaintBottom;
 
     private float mBottomRadius;
-    private float mTopRadius;
     private float mAlphRadius;
 
     private float mBottomRingWidth;
@@ -98,13 +97,13 @@ public class PieChartView extends View {
         pieRadius = screenW / 5;
         mBottomRadius = pieRadius + DensityUtils.dp2px(context, 5);
         mAlphRadius = pieRadius / 3 * 2;
-        mTopRadius = pieRadius / 3 * 2 - dp_10 / 2;
+        float topRadius = pieRadius / 3 * 2 - dp_10 / 2;
         mBottomRingWidth = mBottomRadius - mAlphRadius;
-        mAlphRingWidth = mAlphRadius - mTopRadius;
-        mRingWidth=mBottomRadius - mAlphRadius;
+        mAlphRingWidth = mAlphRadius - topRadius;
+        mRingWidth = mBottomRadius - mAlphRadius;
 
-        pieOval = new RectF(pieCenterX - pieRadius+mRingWidth/2, pieCenterY - pieRadius+mRingWidth/2,
-                pieCenterX + pieRadius-mRingWidth/2, pieCenterY + pieRadius-mRingWidth/2);
+        pieOval = new RectF(pieCenterX - pieRadius + mRingWidth / 2, pieCenterY - pieRadius + mRingWidth / 2,
+                pieCenterX + pieRadius - mRingWidth / 2, pieCenterY + pieRadius - mRingWidth / 2);
     }
 
     private void initData(Context context) {
@@ -140,7 +139,7 @@ public class PieChartView extends View {
         drawBottomCircle(canvas);
         //  画扇形圆环和百分比
         drawArc(canvas);
-        //  画上层圆
+        //  画上半透明环
         drawTopCircle(canvas);
         //  画中心文字
         drawText(canvas);
@@ -157,16 +156,12 @@ public class PieChartView extends View {
         canvas.drawText(mText, pieCenterX - midPaint.measureText(mText) / 2, baseline, midPaint);
     }
 
-    //  画上层圆
+    //  画上半透明环
     private void drawTopCircle(Canvas canvas) {
         piePaint.setColor(Color.parseColor("#4c7F7F7F"));
         piePaint.setStyle(Paint.Style.STROKE);
         piePaint.setStrokeWidth(mAlphRingWidth);
         canvas.drawCircle(pieCenterX, pieCenterY, mAlphRadius - mAlphRingWidth / 2, piePaint);
-
-        piePaint.setColor(Color.parseColor("#ffffff"));
-        piePaint.setStyle(Paint.Style.FILL);
-//        canvas.drawCircle(pieCenterX, pieCenterY, mTopRadius, piePaint);
     }
 
     // 画最底部园
@@ -200,8 +195,8 @@ public class PieChartView extends View {
                 paint.setAntiAlias(true);
                 float sweep = (float) ((mPieItems.get(i).getItemValue()) / totalValue * 360);
                 // 画 扇形
-                canvas.drawArc(pieOval, start * mAnimator.getPhaseX(), sweep+1
-                        * mAnimator.getPhaseY(), false, paint);
+                canvas.drawArc(pieOval, start * mAnimator.getPhaseX(), (sweep
+                        * mAnimator.getPhaseY())+1, false, paint);
                 start += sweep;
                 drawRightRect(canvas, i);
 
@@ -211,6 +206,7 @@ public class PieChartView extends View {
 
     //  Draw right part
     private void drawRightRect(Canvas canvas, int i) {
+        piePaint.setStyle(Paint.Style.FILL);
         piePaint.setColor(mPieItems.get(i).getColor());
         // 获取每项对于的文字
         String itemTypeText = mPieItems.get(i).getItemType() + ":";
