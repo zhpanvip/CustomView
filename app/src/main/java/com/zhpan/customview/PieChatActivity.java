@@ -27,7 +27,7 @@ public class PieChatActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        mPieChartView.setPieItems(mList);
+        mPieChartView.setPieData(mList);
         mPieChartView.startAnim();
         mPieChartView.setText("总支出");
 //        mPieChartView.setText("资产分配");
