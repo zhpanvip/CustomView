@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_progress_view:
                 intent = new Intent(this, ProgressViewActivity.class);
                 break;
+            case R.id.btn_wheel_view:
+                intent = new Intent(this, WheelViewActivity.class);
+                break;
         }
         if (intent != null)
             startActivity(intent);

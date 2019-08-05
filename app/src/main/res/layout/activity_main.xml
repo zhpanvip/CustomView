@@ -6,20 +6,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
     <Button
-        android:id="@+id/btn_progress_view"
+        android:id="@+id/btn_lock_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onClick"
-        android:text="@string/progress_view" />
-
-    <Button
-        android:id="@+id/btn_line_chart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/line_chart_view" />
+        android:text="@string/lock_view" />
 
     <Button
         android:id="@+id/btn_pie_chart"
@@ -30,13 +24,28 @@
         android:text="@string/pie_chart_view" />
 
     <Button
-        android:id="@+id/btn_lock_view"
+        android:id="@+id/btn_line_chart"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/line_chart_view" />
+
+
+    <Button
+        android:id="@+id/btn_wheel_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onClick"
-        android:text="@string/lock_view" />
+        android:text="@string/wheel_view" />
 
-
+    <Button
+        android:id="@+id/btn_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:text="@string/progress_view" />
 
 </LinearLayout>
