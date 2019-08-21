@@ -4,4 +4,5 @@
     <string name="lock_view">LockView</string>
     <string name="pie_chart_view">PieChartView</string>
     <string name="line_chart_view">LineChartView</string>
+    <string name="wheel_view">WheelView</string>
 </resources>

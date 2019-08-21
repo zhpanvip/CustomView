@@ -5,9 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zhpan.custom_line_chart.LineChartView;
 
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -16,8 +14,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    @OnClick({R.id.btn_line_chart, R.id.btn_lock_view,
-            R.id.btn_pie_chart, R.id.btn_progress_view})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -32,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_progress_view:
                 intent = new Intent(this, ProgressViewActivity.class);
+                break;
+            case R.id.btn_wheel_view:
+                intent = new Intent(this, WheelViewActivity.class);
                 break;
         }
         if (intent != null)
