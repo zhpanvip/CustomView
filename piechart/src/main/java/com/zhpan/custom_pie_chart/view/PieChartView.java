@@ -96,8 +96,8 @@ public class PieChartView extends View {
         // 计算半径（扇形）
         pieRadius = screenW / 5;
         mBottomRadius = pieRadius + DensityUtils.dp2px(context, 5);
-        mAlphRadius = pieRadius / 3 * 2;
-        float topRadius = pieRadius / 3 * 2 - dp_10 / 2;
+        mAlphRadius = pieRadius / 3f * 2;
+        float topRadius = pieRadius / 3f * 2 - dp_10 / 2;
         mBottomRingWidth = mBottomRadius - mAlphRadius;
         mAlphRingWidth = mAlphRadius - topRadius;
         mRingWidth = mBottomRadius - mAlphRadius;
