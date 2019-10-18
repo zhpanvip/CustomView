@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">countdown</string>
+    <string name="countdown_day">天</string>
+    <string name="countdown_hour">小时</string>
+    <string name="countdown_minute">分钟</string>
+    <string name="countdown_second">秒</string>
+</resources>
