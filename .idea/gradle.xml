@@ -12,14 +12,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/custom-circle-progress" />
-            <option value="$PROJECT_DIR$/custom-line-chart" />
-            <option value="$PROJECT_DIR$/custom-lock-view" />
-            <option value="$PROJECT_DIR$/custom-pie_chart" />
             <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/linechart" />
+            <option value="$PROJECT_DIR$/lockview" />
+            <option value="$PROJECT_DIR$/piechart" />
+            <option value="$PROJECT_DIR$/ringprogress" />
+            <option value="$PROJECT_DIR$/wheelview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

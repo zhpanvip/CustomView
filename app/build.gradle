@@ -26,8 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':ringprogress')
-    implementation project(':lockview')
-    implementation project(':linechart')
     implementation project(':piechart')
     implementation project(path: ':wheelview')
     implementation project(path: ':countdown')

@@ -53,7 +53,7 @@ public class LockViewActivity extends AppCompatActivity implements OnLockOperate
         } else {
             mLockView.setText("未上锁");
         }
-        mLockView.setNoNetData(true,"未连接");
+//        mLockView.setNoNetData(true,"未连接");
     }
 
     private void changeLockState(boolean isLock) {
