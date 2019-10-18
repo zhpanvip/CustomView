@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 
-
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_wheel_view:
                 intent = new Intent(this, WheelViewActivity.class);
+                break;
+            case R.id.btn_countdown:
+                intent = new Intent(this, CountDownActivity.class);
                 break;
         }
         if (intent != null)

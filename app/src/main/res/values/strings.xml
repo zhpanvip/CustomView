@@ -5,4 +5,5 @@
     <string name="pie_chart_view">PieChartView</string>
     <string name="line_chart_view">LineChartView</string>
     <string name="wheel_view">WheelView</string>
+    <string name="countdown">CountdwonView</string>
 </resources>

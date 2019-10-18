@@ -48,4 +48,11 @@
         android:onClick="onClick"
         android:text="@string/progress_view" />
 
+    <Button
+        android:id="@+id/btn_countdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:text="@string/countdown" />
 </LinearLayout>
