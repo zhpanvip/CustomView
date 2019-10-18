@@ -1,1 +1,1 @@
-include ':app', ':ringprogress', ':library', ':lockview', ':linechart', ':piechart', ':wheelview', ':countdown'
+include ':app'
