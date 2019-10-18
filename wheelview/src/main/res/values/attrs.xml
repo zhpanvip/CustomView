@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="WheelView">
-        <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="color"/>
-        <attr name="linePadding" format="dimension"/>
-        <attr name="textMaxScale" format="float"/>
-        <attr name="textMinAlpha" format="float"/>
-        <attr name="recycleMode" format="boolean"/>
-        <attr name="maxShowNum" format="integer"/>
+        <attr name="wv_text_size" format="dimension"/>
+        <attr name="wv_text_color" format="color"/>
+        <attr name="wv_line_padding" format="dimension"/>
+        <attr name="wv_text_max_scale" format="float"/>
+        <attr name="wv_text_min_alpha" format="float"/>
+        <attr name="wv_recycle_mode" format="boolean"/>
+        <attr name="wv_max_show_num" format="integer"/>
         <!--<attr name="label" format="string"/>-->
     </declare-styleable>
 </resources>

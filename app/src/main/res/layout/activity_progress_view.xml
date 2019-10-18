@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.zhpan.custom_circle_progress.CircleProgressView
+    <com.zhpan.custom_circle_progress.RingProgressView
         android:id="@+id/cp_view"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        app:maxProgress="100" />
+        app:rpv_max_progress="100" />
 
 
     <LinearLayout

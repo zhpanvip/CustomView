@@ -15,9 +15,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        app:lineColor="#FF0000"
-        app:textColor="#ABABAB"
-        app:textSize="@dimen/sp_12"/>
+        app:lcv_line_color="#FF0000"
+        app:lcv_text_color="#ABABAB"
+        app:lcv_text_size="@dimen/sp_12"/>
 
     <Button
         android:layout_width="wrap_content"

@@ -10,8 +10,8 @@
         android:id="@+id/pcv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        app:textSize="20sp"
-        app:textColor="#333333"/>
+        app:pcv_text_size="20sp"
+        app:pcv_text_color="#333333"/>
 
     <Button
         android:layout_width="match_parent"

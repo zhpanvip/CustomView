@@ -68,10 +68,10 @@ public class CircleWaveView extends View {
         super(context, attrs, defStyleAttr);
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleWaveView);
-            circleColor = typedArray.getColor(R.styleable.CircleWaveView_wave_color, context.getResources().getColor(R.color.red));
-            mTextColor = typedArray.getColor(R.styleable.CircleWaveView_wave_text_color, context.getResources().getColor(R.color.white));
-            mTextSize = typedArray.getDimension(R.styleable.CircleWaveView_wave_text_size, DensityUtils.dp2px(context, 16));
-            mText = typedArray.getString(R.styleable.CircleWaveView_wave_text_str);
+            circleColor = typedArray.getColor(R.styleable.CircleWaveView_cwv_color, context.getResources().getColor(R.color.red));
+            mTextColor = typedArray.getColor(R.styleable.CircleWaveView_cwv_text_color, context.getResources().getColor(R.color.white));
+            mTextSize = typedArray.getDimension(R.styleable.CircleWaveView_cwv_text_size, DensityUtils.dp2px(context, 16));
+            mText = typedArray.getString(R.styleable.CircleWaveView_cwv_text_str);
             typedArray.recycle();
         }
         init(context);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="PieChartView">
-        <attr name="textSize" format="dimension"/>    <!--字体大小-->
-        <attr name="textColor" format="color"/>    <!-- 文字颜色-->
+        <attr name="pcv_text_size" format="dimension"/>    <!--字体大小-->
+        <attr name="pcv_text_color" format="color"/>    <!-- 文字颜色-->
     </declare-styleable>
 </resources>

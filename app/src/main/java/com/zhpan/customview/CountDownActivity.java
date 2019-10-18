@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.android.countdown.CountdownView;
+import com.zhpan.library.DensityUtils;
 
 public class CountDownActivity extends AppCompatActivity {
     CountdownView mCountdownView;
@@ -17,8 +18,10 @@ public class CountDownActivity extends AppCompatActivity {
 
         mCountdownView.setTimestamp(100*1000 * 5);
         mCountdownView.setCountdownPrefix("距离开始时间：");
-        mCountdownView.setTextSize(10);
-        mCountdownView.setPrefixColor(getResources().getColor(R.color.colorAccent));
+        mCountdownView.setTextSize(DensityUtils.dp2px(this,16));
+        mCountdownView.setPrefixColor(getResources().getColor(R.color.colorPrimary));
+        mCountdownView.setShowSecond(true);
+        mCountdownView.setShowHours(true);
         mCountdownView.startCountdown();
     }
 

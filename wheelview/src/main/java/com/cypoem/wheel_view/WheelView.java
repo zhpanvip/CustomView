@@ -66,7 +66,7 @@ public class WheelView extends View {
     private boolean isSliding;
     // 正常状态下最多显示几个文字，默认3（偶数时，边缘的文字会截断）
     private int mMaxShowNum;
-    private String label="个";
+    private String label = "个";
 
     private TextPaint mTextPaint;
     private Paint.FontMetrics mFontMetrics;
@@ -87,13 +87,13 @@ public class WheelView extends View {
     public WheelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WheelView);
-        mTextSize = typedArray.getDimension(R.styleable.WheelView_textSize, 32);
-        mTextColor = typedArray.getColor(R.styleable.WheelView_textColor, Color.parseColor("#CCCCCC"));
-        mLinePadding = (int) typedArray.getDimension(R.styleable.WheelView_linePadding, DensityUtils.dp2px(context, 20));
-        mTextMaxScale = typedArray.getFloat(R.styleable.WheelView_textMaxScale, 2.0f);
-        mTextMinAlpha = typedArray.getFloat(R.styleable.WheelView_textMinAlpha, 0.4f);
-        isCircle = typedArray.getBoolean(R.styleable.WheelView_recycleMode, false);
-        mMaxShowNum =typedArray.getInt(R.styleable.WheelView_maxShowNum,3);
+        mTextSize = typedArray.getDimension(R.styleable.WheelView_wv_text_size, 32);
+        mTextColor = typedArray.getColor(R.styleable.WheelView_wv_text_color, Color.parseColor("#CCCCCC"));
+        mLinePadding = (int) typedArray.getDimension(R.styleable.WheelView_wv_line_padding, DensityUtils.dp2px(context, 20));
+        mTextMaxScale = typedArray.getFloat(R.styleable.WheelView_wv_text_max_scale, 2.0f);
+        mTextMinAlpha = typedArray.getFloat(R.styleable.WheelView_wv_text_min_alpha, 0.4f);
+        isCircle = typedArray.getBoolean(R.styleable.WheelView_wv_recycle_mode, false);
+        mMaxShowNum = typedArray.getInt(R.styleable.WheelView_wv_max_show_num, 3);
         //label=typedArray.getString(R.styleable.WheelView_label);
         typedArray.recycle();
 
@@ -129,7 +129,7 @@ public class WheelView extends View {
         mode = MeasureSpec.getMode(heightMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         textHeight = (int) (mFontMetrics.bottom - mFontMetrics.top);
-        contentHeight=textHeight*mMaxShowNum+mLinePadding*mMaxShowNum;
+        contentHeight = textHeight * mMaxShowNum + mLinePadding * mMaxShowNum;
         if (mode != MeasureSpec.EXACTLY) {  //  wrap_content
             height = contentHeight + getPaddingTop() + getPaddingBottom();
         }
@@ -166,14 +166,14 @@ public class WheelView extends View {
                     finishScroll();
                 }
                 //  没有滑动
-                if(!isSliding){
-                    if(downY<contentHeight/3){
+                if (!isSliding) {
+                    if (downY < contentHeight / 3) {
                         moveBy(-1);
-                    }else if(downY>2*contentHeight/3){
+                    } else if (downY > 2 * contentHeight / 3) {
                         moveBy(1);
                     }
                 }
-                isSliding=false;
+                isSliding = false;
                 recycleVelocityTracker();
                 break;
         }
@@ -181,48 +181,49 @@ public class WheelView extends View {
     }
 
     private void recycleVelocityTracker() {
-        if(mVelocityTracker!=null){
+        if (mVelocityTracker != null) {
             mVelocityTracker.recycle();
-            mVelocityTracker=null;
+            mVelocityTracker = null;
         }
     }
 
     private void moveBy(int offsetIndex) {
         moveTo(getNowIndex(offsetIndex));
     }
+
     //  滑动到指定位置
     private void moveTo(int index) {
-        if(index<0||index>dataList.size()||curIndex==index){
+        if (index < 0 || index > dataList.size() || curIndex == index) {
             return;
         }
-        if(!mScroller.isFinished()){
+        if (!mScroller.isFinished()) {
             mScroller.forceFinished(true);
         }
         finishScroll();
-        int dy=0;
-        int centerPadding=textHeight+mLinePadding;
-        if(!isCircle){
-            dy=(curIndex-index)*centerPadding;
-        }else {
-            int offsetIndex=curIndex-index;
-            int d1= Math.abs(offsetIndex)*centerPadding;
-            int d2=(dataList.size()- Math.abs(offsetIndex)*centerPadding);
+        int dy = 0;
+        int centerPadding = textHeight + mLinePadding;
+        if (!isCircle) {
+            dy = (curIndex - index) * centerPadding;
+        } else {
+            int offsetIndex = curIndex - index;
+            int d1 = Math.abs(offsetIndex) * centerPadding;
+            int d2 = (dataList.size() - Math.abs(offsetIndex) * centerPadding);
 
-            if(offsetIndex>0){
-                if(d1<d2){
-                    dy=d1;
-                }else {
-                    dy=-d2;
+            if (offsetIndex > 0) {
+                if (d1 < d2) {
+                    dy = d1;
+                } else {
+                    dy = -d2;
                 }
-            }else {
-                if(d1<d2){
-                    dy=-d1;
-                }else {
-                    dy=d2;
+            } else {
+                if (d1 < d2) {
+                    dy = -d1;
+                } else {
+                    dy = d2;
                 }
             }
         }
-        mScroller.startScroll(0,0,0,dy,500);
+        mScroller.startScroll(0, 0, 0, dy, 500);
         invalidate();
     }
 
@@ -231,9 +232,9 @@ public class WheelView extends View {
         super.onDraw(canvas);
         if (null != dataList && dataList.size() > 0) {
             canvas.clipRect(
-                    xOri - contentWidth ,
+                    xOri - contentWidth,
                     yOri - contentHeight / 2,
-                    xOri + contentWidth ,
+                    xOri + contentWidth,
                     yOri + contentHeight / 2
             );
 
@@ -244,40 +245,40 @@ public class WheelView extends View {
 
     private void drawLabel(Canvas canvas) {
 
-        canvas.drawText(label,xOri+40,yOri,mTextPaint);
+        canvas.drawText(label, xOri + 40, yOri, mTextPaint);
     }
 
     private void drawText(Canvas canvas) {
         //  绘制文字
-        int listSize=dataList.size();
-        int centerPadding=textHeight+mLinePadding;
-        int half=mMaxShowNum/2+1;
-        for(int i=-half;i<half;i++){
-            int index=curIndex-offsetIndex+i;
-            if(isCircle){
-                if(index<0){
-                    index=(index+1)%dataList.size()+dataList.size()-1;
-                }else if(index>dataList.size()-1){
-                    index=index%dataList.size();
+        int listSize = dataList.size();
+        int centerPadding = textHeight + mLinePadding;
+        int half = mMaxShowNum / 2 + 1;
+        for (int i = -half; i < half; i++) {
+            int index = curIndex - offsetIndex + i;
+            if (isCircle) {
+                if (index < 0) {
+                    index = (index + 1) % dataList.size() + dataList.size() - 1;
+                } else if (index > dataList.size() - 1) {
+                    index = index % dataList.size();
                 }
             }
-            if(index>=0&&index<listSize){
+            if (index >= 0 && index < listSize) {
                 //  计算每个字的中间y坐标
-                int tempY=yOri+i*centerPadding;
-                tempY+=offsetY%centerPadding;
+                int tempY = yOri + i * centerPadding;
+                tempY += offsetY % centerPadding;
                 //  根据每个字中间y坐标到xOri的距离，计算scale值
-                float scale=1.0f-(1.0f* Math.abs(tempY-yOri)/centerPadding);
+                float scale = 1.0f - (1.0f * Math.abs(tempY - yOri) / centerPadding);
                 //  根据textMaxScale计算tempScale值，即实际text应该放大的倍数，范围1-textMaxScale
-                float tempScale=scale*(mTextMaxScale-1.0f)+1.0f;
-                tempScale=tempScale<1.0f?1.0f:tempScale;
-                mTextPaint.setTextSize(mTextSize*tempScale);
-                mTextPaint.setAlpha((int)(255*mTextMinAlpha*tempScale));
+                float tempScale = scale * (mTextMaxScale - 1.0f) + 1.0f;
+                tempScale = tempScale < 1.0f ? 1.0f : tempScale;
+                mTextPaint.setTextSize(mTextSize * tempScale);
+                mTextPaint.setAlpha((int) (255 * mTextMinAlpha * tempScale));
 
                 //  绘制
-                Paint.FontMetrics tempFm=mTextPaint.getFontMetrics();
-                String text=dataList.get(index);
-                float textWidth=mTextPaint.measureText(text);
-                canvas.drawText(text,xOri-textWidth/2,tempY-(tempFm.ascent+tempFm.descent)/2,mTextPaint);
+                Paint.FontMetrics tempFm = mTextPaint.getFontMetrics();
+                String text = dataList.get(index);
+                float textWidth = mTextPaint.measureText(text);
+                canvas.drawText(text, xOri - textWidth / 2, tempY - (tempFm.ascent + tempFm.descent) / 2, mTextPaint);
 
             }
         }
@@ -286,11 +287,11 @@ public class WheelView extends View {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if(mScroller.computeScrollOffset()){
-            offsetY=oldOffsetY+mScroller.getCurrY();
-            if(!mScroller.isFinished()){
+        if (mScroller.computeScrollOffset()) {
+            offsetY = oldOffsetY + mScroller.getCurrY();
+            if (!mScroller.isFinished()) {
                 reDraw();
-            }else {
+            } else {
                 finishScroll();
             }
         }
@@ -388,30 +389,30 @@ public class WheelView extends View {
         this.onScrollChangedListener = onScrollChangedListener;
     }
 
-    public void setDataList(List<String> dataList){
+    public void setDataList(List<String> dataList) {
         this.dataList.clear();
         this.dataList.addAll(dataList);
 
         //  更新maxTextWidth
-        if(null!=dataList&&dataList.size()>0){
-            int size=dataList.size();
-            for(int i=0;i<size;i++){
+        if (null != dataList && dataList.size() > 0) {
+            int size = dataList.size();
+            for (int i = 0; i < size; i++) {
 
-                float tempWidth=mTextPaint.measureText(dataList.get(i));
-                if(tempWidth>maxTextWidth){
-                    maxTextWidth=tempWidth;
+                float tempWidth = mTextPaint.measureText(dataList.get(i));
+                if (tempWidth > maxTextWidth) {
+                    maxTextWidth = tempWidth;
                 }
-                curIndex=0;
+                curIndex = 0;
             }
         }
         requestLayout();
     }
 
     /**
-     *  获取当前选中的位置
+     * 获取当前选中的位置
      */
-    public int getCurIndex(){
-        return curIndex-offsetIndex;
+    public int getCurIndex() {
+        return curIndex - offsetIndex;
     }
 
     public boolean isCircle() {

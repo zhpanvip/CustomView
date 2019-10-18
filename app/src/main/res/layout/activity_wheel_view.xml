@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:linePadding="20dp"
-        app:maxShowNum="3" />
+        app:wv_line_padding="20dp"
+        app:wv_max_show_num="3" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,11 +4,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import com.zhpan.custom_circle_progress.CircleProgressView;
+import com.zhpan.custom_circle_progress.RingProgressView;
 
 public class ProgressViewActivity extends AppCompatActivity {
 
-    private CircleProgressView mCircleProgress;
+    private RingProgressView mCircleProgress;
     private int progress;
     private static Handler mHandler = new Handler();
     private boolean isRunning;

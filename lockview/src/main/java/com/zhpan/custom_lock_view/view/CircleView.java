@@ -46,10 +46,10 @@ public class CircleView extends View {
         super(context, attrs, defStyleAttr);
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleView);
-            circleColor = typedArray.getColor(R.styleable.CircleView_circle_color, context.getResources().getColor(R.color.red));
-            mTextColor = typedArray.getColor(R.styleable.CircleView_text_color, context.getResources().getColor(R.color.white));
-            mTextSize = typedArray.getDimension(R.styleable.CircleView_text_size, DensityUtils.dp2px(context,16));
-            mText = typedArray.getString(R.styleable.CircleView_text_str);
+            circleColor = typedArray.getColor(R.styleable.CircleView_cv_circle_color, context.getResources().getColor(R.color.red));
+            mTextColor = typedArray.getColor(R.styleable.CircleView_cv_text_color, context.getResources().getColor(R.color.white));
+            mTextSize = typedArray.getDimension(R.styleable.CircleView_cv_text_size, DensityUtils.dp2px(context,16));
+            mText = typedArray.getString(R.styleable.CircleView_cv_text_str);
             typedArray.recycle();
         }
         init(context);

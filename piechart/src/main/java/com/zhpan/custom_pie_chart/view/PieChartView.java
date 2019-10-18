@@ -4,11 +4,11 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
-import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextUtils;
@@ -16,6 +16,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import com.zhpan.custom_pie_chart.R;
 import com.zhpan.custom_pie_chart.anim.ChartAnimator;
 import com.zhpan.custom_pie_chart.module.PieItemBean;
 import com.zhpan.library.DensityUtils;
@@ -55,10 +56,10 @@ public class PieChartView extends View {
     public Paint mPaintBottom;
 
     private float mBottomRadius;
-    private float mAlphRadius;
+    private float mAlphaRadius;
 
     private float mBottomRingWidth;
-    private float mAlphRingWidth;
+    private float mAlphaRingWidth;
     private float mRingWidth;
 
     private float dp_10;
@@ -68,6 +69,10 @@ public class PieChartView extends View {
     private float mTypeTextLen;
 
     private float mTxtY;
+
+    private int textColor;
+
+    private int textSize;
 
     public PieChartView(Context context) {
         this(context, null);
@@ -80,8 +85,18 @@ public class PieChartView extends View {
     public PieChartView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+        initValues(attrs);
         initRadius(context);
         initData(context);
+    }
+
+    private void initValues(AttributeSet attrs) {
+        if (attrs != null) {
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.PieChartView);
+            textColor = typedArray.getColor(R.styleable.PieChartView_pcv_text_color, Color.BLACK);
+            textSize = (int) typedArray.getDimension(R.styleable.PieChartView_pcv_text_size, DensityUtils.dp2px(context, 13f));
+            typedArray.recycle();
+        }
     }
 
 
@@ -96,11 +111,11 @@ public class PieChartView extends View {
         // 计算半径（扇形）
         pieRadius = screenW / 5;
         mBottomRadius = pieRadius + DensityUtils.dp2px(context, 5);
-        mAlphRadius = pieRadius / 3 * 2;
+        mAlphaRadius = pieRadius / 3 * 2;
         float topRadius = pieRadius / 3 * 2 - dp_10 / 2;
-        mBottomRingWidth = mBottomRadius - mAlphRadius;
-        mAlphRingWidth = mAlphRadius - topRadius;
-        mRingWidth = mBottomRadius - mAlphRadius;
+        mBottomRingWidth = mBottomRadius - mAlphaRadius;
+        mAlphaRingWidth = mAlphaRadius - topRadius;
+        mRingWidth = mBottomRadius - mAlphaRadius;
 
         pieOval = new RectF(pieCenterX - pieRadius + mRingWidth / 2, pieCenterY - pieRadius + mRingWidth / 2,
                 pieCenterX + pieRadius - mRingWidth / 2, pieCenterY + pieRadius - mRingWidth / 2);
@@ -110,7 +125,7 @@ public class PieChartView extends View {
         // The paint to draw text.
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
-        textPaint.setTextSize(DensityUtils.dp2px(context, 13f));
+        textPaint.setTextSize(textSize);
 
         // The paint to draw circle.
         piePaint = new Paint();
@@ -150,7 +165,8 @@ public class PieChartView extends View {
         if (TextUtils.isEmpty(mText)) return;
         Rect bounds = new Rect();
         midPaint.getTextBounds(mText, 0, mText.length(), bounds);
-        midPaint.setTextSize(DensityUtils.dp2px(context, 13f));
+        midPaint.setTextSize(textSize);
+        midPaint.setColor(textColor);
         Paint.FontMetricsInt fontMetricsInt = midPaint.getFontMetricsInt();
         int baseline = (getMeasuredHeight() - fontMetricsInt.bottom) / 2 - fontMetricsInt.top;
         canvas.drawText(mText, pieCenterX - midPaint.measureText(mText) / 2, baseline, midPaint);
@@ -160,8 +176,8 @@ public class PieChartView extends View {
     private void drawTopCircle(Canvas canvas) {
         piePaint.setColor(Color.parseColor("#4c7F7F7F"));
         piePaint.setStyle(Paint.Style.STROKE);
-        piePaint.setStrokeWidth(mAlphRingWidth);
-        canvas.drawCircle(pieCenterX, pieCenterY, mAlphRadius - mAlphRingWidth / 2, piePaint);
+        piePaint.setStrokeWidth(mAlphaRingWidth);
+        canvas.drawCircle(pieCenterX, pieCenterY, mAlphaRadius - mAlphaRingWidth / 2, piePaint);
     }
 
     // 画最底部园
@@ -196,7 +212,7 @@ public class PieChartView extends View {
                 float sweep = (float) ((mPieItems.get(i).getItemValue()) / totalValue * 360);
                 // 画 扇形
                 canvas.drawArc(pieOval, start * mAnimator.getPhaseX(), (sweep
-                        * mAnimator.getPhaseY())+1, false, paint);
+                        * mAnimator.getPhaseY()) + 1, false, paint);
                 start += sweep;
                 drawRightRect(canvas, i);
 
@@ -274,5 +290,13 @@ public class PieChartView extends View {
 
     public void setText(String text) {
         this.mText = text;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 }

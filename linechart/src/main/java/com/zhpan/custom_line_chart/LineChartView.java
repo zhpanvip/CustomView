@@ -172,12 +172,12 @@ public class LineChartView extends View {
     public LineChartView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.LineChartView);
-        mAxesColor = typedArray.getColor(R.styleable.LineChartView_axesColor, Color.parseColor("#CCCCCC"));
-        mAxesWidth = typedArray.getDimension(R.styleable.LineChartView_axesWidth, 1);
-        mTextColor = typedArray.getColor(R.styleable.LineChartView_textColor, Color.parseColor("#ABABAB"));
-        mTextSize = typedArray.getDimension(R.styleable.LineChartView_textSize, 32);
-        mLineColor = typedArray.getColor(R.styleable.LineChartView_lineColor, Color.RED);
-        mBgColor = typedArray.getColor(R.styleable.LineChartView_bgColor, Color.WHITE);
+        mAxesColor = typedArray.getColor(R.styleable.LineChartView_lcv_axes_color, Color.parseColor("#CCCCCC"));
+        mAxesWidth = typedArray.getDimension(R.styleable.LineChartView_lcv_axes_width, 1);
+        mTextColor = typedArray.getColor(R.styleable.LineChartView_lcv_text_color, Color.parseColor("#ABABAB"));
+        mTextSize = typedArray.getDimension(R.styleable.LineChartView_lcv_text_size, 32);
+        mLineColor = typedArray.getColor(R.styleable.LineChartView_lcv_line_color, Color.RED);
+        mBgColor = typedArray.getColor(R.styleable.LineChartView_lcv_background, Color.WHITE);
         typedArray.recycle();
 
         //  初始化渐变色
@@ -294,13 +294,13 @@ public class LineChartView extends View {
     private void drawText(Canvas canvas) {
 
         //  绘制最大值
-        String maxValue= String.format(Locale.getDefault(),"%.2f", max * 100 / 100.0) + "%";
+        String maxValue = String.format(Locale.getDefault(), "%.2f", max * 100 / 100.0) + "%";
         canvas.drawText(maxValue, xOrigin + 6, 2 * mMargin10, mPaintText);
         //  绘制最小值
-        String minValue= String.format(Locale.getDefault(),"%.2f", min * 100 / 100.0) + "%";
+        String minValue = String.format(Locale.getDefault(), "%.2f", min * 100 / 100.0) + "%";
         canvas.drawText(minValue, xOrigin + 6, yOrigin - 6, mPaintText);
         //  绘制中间值
-        String midValue= String.format(Locale.getDefault(),"%.2f", (min + max) * 100 / 200.0) + "%";
+        String midValue = String.format(Locale.getDefault(), "%.2f", (min + max) * 100 / 200.0) + "%";
         canvas.drawText(midValue, xOrigin + 6, (yOrigin + mMargin10) / 2, mPaintText);
 
         //  绘制开始日期
@@ -357,7 +357,8 @@ public class LineChartView extends View {
         private long Timestamp;
         private int value;
 
-        public ItemBean(){}
+        public ItemBean() {
+        }
 
 
         public ItemBean(long timestamp, int value) {

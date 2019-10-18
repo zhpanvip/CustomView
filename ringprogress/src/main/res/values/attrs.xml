@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CircleProgressView">
-        <attr name="maxProgress" format="integer" />
-        <attr name="ring_color" format="color" />
-        <attr name="progress_color" format="color"/>
-        <attr name="text_color" format="color" />
-        <attr name="text_size" format="dimension" />
-        <attr name="text_visible" format="boolean" />
+    <declare-styleable name="RingProgressView">
+        <attr name="rpv_max_progress" format="integer" />
+        <attr name="rpv_ring_color" format="color" />
+        <attr name="rpv_progress_color" format="color"/>
+        <attr name="rpv_text_color" format="color" />
+        <attr name="rpv_text_size" format="dimension" />
+        <attr name="rpv_text_visible" format="boolean" />
     </declare-styleable>
 
 </resources>

@@ -16,7 +16,7 @@ import com.zhpan.library.DensityUtils;
  * create by zhpan on 2018/8/24 18:49
  * Describe:
  */
-public class CircleProgressView extends View {
+public class RingProgressView extends View {
     private int centerX;
     private int centerY;
     private int mRadius;
@@ -35,15 +35,15 @@ public class CircleProgressView extends View {
     private Paint mPaintText;
     private int mRingWidthPercent;
 
-    public CircleProgressView(Context context) {
+    public RingProgressView(Context context) {
         this(context, null);
     }
 
-    public CircleProgressView(Context context, @Nullable AttributeSet attrs) {
+    public RingProgressView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RingProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -53,13 +53,13 @@ public class CircleProgressView extends View {
         mPaint = new Paint();
         mPaintText = new Paint();
         bounds = new Rect();
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressView);
-        progressColor = typedArray.getColor(R.styleable.CircleProgressView_ring_color, context.getResources().getColor(R.color.green));
-        ringColor = typedArray.getColor(R.styleable.CircleProgressView_ring_color, context.getResources().getColor(R.color.ring_color));
-        mTextColor = typedArray.getColor(R.styleable.CircleProgressView_text_color, context.getResources().getColor(R.color.green));
-        maxProgress = typedArray.getInteger(R.styleable.CircleProgressView_maxProgress, 100);
-        showText = typedArray.getBoolean(R.styleable.CircleProgressView_text_visible, false);
-        mTextSize = typedArray.getDimension(R.styleable.CircleProgressView_text_size, DensityUtils.dp2px(context, 14));
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RingProgressView);
+        progressColor = typedArray.getColor(R.styleable.RingProgressView_rpv_ring_color, context.getResources().getColor(R.color.green));
+        ringColor = typedArray.getColor(R.styleable.RingProgressView_rpv_ring_color, context.getResources().getColor(R.color.ring_color));
+        mTextColor = typedArray.getColor(R.styleable.RingProgressView_rpv_text_color, context.getResources().getColor(R.color.green));
+        maxProgress = typedArray.getInteger(R.styleable.RingProgressView_rpv_max_progress, 100);
+        showText = typedArray.getBoolean(R.styleable.RingProgressView_rpv_text_visible, false);
+        mTextSize = typedArray.getDimension(R.styleable.RingProgressView_rpv_text_size, DensityUtils.dp2px(context, 14));
         mPaintText.setStyle(Paint.Style.FILL);
         mPaintText.setColor(mTextColor);
         mPaintText.setAntiAlias(true);
